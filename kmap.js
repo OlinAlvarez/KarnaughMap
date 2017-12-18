@@ -72,6 +72,39 @@ displayGrid = function(grid){
         }
     }
 }
+getGroups = function(grid){
+    groups = []
+    group = []; // temporary group
+    //m x n matrix
+    m = grid.length;
+    n = grid[0].length;
+    gw = gl = gd = 0;//group width, length, diagonal
+    for(var i = 0; i < m; i++){
+        for(var j = 0; j < n; j++){
+            if(grid[i][j] == 1){
+                gw = i;
+                gl = j;
+                //vertical line search
+                while(grid[(gl+1) % m][j] == 1 && gl < m){
+                    gl++;
+                }
+                //horizontal line search
+                while(grid[i][(gw+1) % n] == 1 && gw < n){
+                    gw++;
+                }
+                for(var k = (i + 1); k < gw; k++){
+                    for(var l = (j + 1); l < gl; l++){
+                        if(grid[k % m][l % n] == 1){
+
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    return groups;
+}
 
 findMinterms = function(terms,uniques){
     bins = [];
@@ -121,7 +154,13 @@ findMinterms = function(terms,uniques){
             }
         }
         console.log(binaries);
-        return binaries;
+        mins = [];
+        binaries.forEach(function(bin){
+            if(!mins.includes(bin)){
+                mins.push(bin);
+            }
+        });
+        return mins.sort(function(a, b){return a - b;});
     }
     return getBinCominbations(bins);
 }
