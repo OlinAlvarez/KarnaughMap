@@ -164,3 +164,4 @@ findMinterms = function(terms,uniques){
     }
     return getBinCominbations(bins);
 }
+
